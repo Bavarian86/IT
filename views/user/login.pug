@@ -1,0 +1,25 @@
+//  START
+ * Nadege Marending
+  */
+
+extends ../common/layout
+
+block content
+  h1.m-3 Login
+  div.container.h-100
+    if error != null
+      p(style="color:red") #{error}
+    div.row.h-100.justify-content-center.align-items-center
+        form(action="/login" method="POST")
+          div.form-group
+            input.form-control(type="email" id="email" name="email" placeholder="Email")
+          div.form-group
+            input.form-control(type="password" id="password" name="password" placeholder="Password")
+          button.btn.btn-primary(type="submit") Login
+    p(style="margin-top: 1em") If you have no account, please
+      a(href="/registration") register
+
+
+//  
+ * Nadege Marending
+  END */

@@ -1,0 +1,22 @@
+//  START
+ * Nadege Marending
+  */
+
+mixin shoppingItem(product)
+    li.list-group-item
+        div.row.product
+            div.col-sm
+                input(type="hidden" value=product.id name="id")
+                input(type="hidden" value=product.maxProducts name="maxProducts")
+                input(type="hidden" value=product.minOfPallets name="minOfPallets")
+                img(src=product.picture alt='Product image' style="width:50px;height:50px")
+            div.col-sm
+                h5.my-auto #{product.name}
+            div.col-sm
+                label(for="amount") Amount:
+                input(type="number" min="0" max="100" name="amount" value=product.amount)
+
+
+//  
+ * Nadege Marending
+  END */

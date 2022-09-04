@@ -1,0 +1,20 @@
+//  START
+ * Nadege Marending
+  */
+
+mixin productItem(product)
+    li.list-group-item
+        div.row.product
+            div.col-sm
+                img(src='/img/products/'+product.picture alt='Product image' style="width:50px;height:50px")
+            div.col-sm
+                h5.my-auto #{product.name}
+            div.col-sm
+                div.input-group-prepend
+                    div.input-group-text Amount
+                    input.form-control(type="text" readonly=true value=product.amount)
+
+//  
+ * Nadege Marending
+  END */
+    

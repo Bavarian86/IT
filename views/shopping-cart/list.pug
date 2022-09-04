@@ -1,0 +1,117 @@
+// START  
+ * Nadege Marending
+  */
+
+extends ../common/layout
+include item
+
+block content
+    h1.m-3 Shopping Cart
+    div.container-fluid
+        ul.list-group
+            each val in list
+                +shoppingItem(val)
+            else
+                | There is no products in Shopping Cart
+    hr
+    form.form-row
+        div.col-4
+            div.input-group.mb-2
+                div.input-group-prepend
+                    div.input-group-text Number of Pallets
+                input.form-control(type="text" readonly=true name="palletsCount" id="palletsCount" value=0)
+        div.col-4
+            div.input-group.mb-2
+                div.input-group-prepend
+                    div.input-group-text Transportation Price
+                input.form-control(type="text" readonly=true name="price" id="price" value=0)
+                button.btn.mb-2.btn-secondary.my-auto(type="button" id="refreshBtn")
+                    i.class.fa-solid.fa-arrows-rotate
+        div.col-4
+            button.btn.btn-primary(type="submit" id="checkoutBtn") Checkout
+
+block scripts
+    script.
+        function calculatePrice() {
+            const products = [];
+            $(".product").each(function () {
+                products.push({
+                    "id": $(this).find("input[name='id']").val(),
+                    "amount": $(this).find("input[name='amount']").val(),
+                    "maxProducts": $(this).find("input[name='maxProducts']").val(),
+                    "minOfPallets": $(this).find("input[name='minOfPallets']").val(),
+                });
+            });
+            jQuery.ajax({
+                type: "POST",
+                data: JSON.stringify({products: products}),
+                contentType: 'application/json',
+                url: "/api/tprice",
+                success: function (data) {
+                    $("#palletsCount").val(data[0]);
+                    $("#price").val(data[1]);
+                    updateShoppingCart();
+                }
+            });
+        }
+        function updateShoppingCart() {
+            const products = {};
+            $(".product").each(function () {
+                products[$(this).find("input[name='id']").val()] = $(this).find("input[name='amount']").val();
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/shop/refresh",
+                data: JSON.stringify({products: products}),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.result === 'SUCCESS') {
+                    } else {
+                        alert('Error during Cart update, please contact Admins');
+                    }
+                }
+            });
+        }
+        function checkout() {
+            const products = [];
+            $(".product").each(function () {
+                products.push({
+                    "id": $(this).find("input[name='id']").val(),
+                    "amount": $(this).find("input[name='amount']").val(),
+                    "maxProducts": $(this).find("input[name='maxProducts']").val(),
+                    "minOfPallets": $(this).find("input[name='minOfPallets']").val(),
+                });
+            });
+            const pallets = $("#palletsCount").val();
+            const price = $("#price").val();
+            $.ajax({
+                type: "POST",
+                url: "/shop/order",
+                data: JSON.stringify({products, pallets, price}),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.result === 'SUCCESS') {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+    script.
+        $(document).ready(function() {
+            $("#checkoutBtn").click((e) => {
+                e.preventDefault();
+                checkout();
+            });
+            $("#refreshBtn").click((e) => {
+               e.preventDefault();
+                calculatePrice();
+            });
+            calculatePrice();
+        });
+
+//  
+ * Nadege Marending
+  END */

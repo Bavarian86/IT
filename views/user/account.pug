@@ -1,0 +1,41 @@
+//  Start
+ * Nadege Marending
+  */
+
+extends ../common/layout
+include ../order/item
+
+block content
+    h1.m-3 Account Details
+    nav
+        div.nav.nav-tabs(id="account-tab" role="tablist")
+            a.nav-item.nav-link.active(id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="true") Address
+            a.nav-item.nav-link(id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab" aria-controls="nav-orders" aria-selected="false") Orders history
+            a.nav-item.nav-link(id="nav-settings-tab" data-toggle="tab" href="#nav-settings" role="tab" aria-controls="nav-settings" aria-selected="false") Settings
+        div.tab-content
+            div.tab-pane.fade.show.active(id="nav-address" role="tabpanel" aria-labelledby="nav-address")
+                div.card.mb-3
+                    div.card-body
+                        h5.card-title #{user.first_name} #{user.last_name}
+                        p.card-text #{user.address_line1}
+                        p.card-text #{user.address_line2}
+                        p.card-text #{user.city}, #{user.postal_code}
+                        p.card-text
+                            small.text-muted email: #{user.email} - tel: #{user.telephone} - mob: #{user.mobile}
+            div.tab-pane.fade(id="nav-orders" role="tabpanel" aria-labelledby="nav-orders")
+                if orders.length
+                    div.row
+                        div.col-12
+                            div.accordion(id="accordionOrders")
+                                each val in orders
+                                    +orderItem(val)
+                else
+                    | You didn't make orders yet...
+            div.tab-pane.fade(id="nav-settings" role="tabpanel" aria-labelledby="nav-settings")
+                | Currently no settings are available...
+
+
+//  
+ * Nadege Marending
+  END */
+    

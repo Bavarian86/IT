@@ -1,0 +1,36 @@
+//  START
+ * Nadege Marending
+  */
+
+include product
+
+mixin orderItem(order)
+    div.card
+        div.card-header(id="heading"+order.id)
+            h5.mb-0
+                button.btn.btn-link(data-toggle="collapse" data-target="#collapse"+order.id aria-expanded="true" aria-controls="collapse"+order.id)
+                    | Order ##{order.id} from #{new Date(order.order_date)}
+        div.collapse(id="collapse"+order.id aria-labelledby="heading"+order.id data-parent="#accordionOrders")
+            div.row
+                div.col-4
+                    div.input-group.mb-2
+                        div.input-group-prepend
+                            div.input-group-text Number of Pallets
+                        input.form-control(type="text" readonly=true value=order.pallets)
+                div.col-4
+                    div.input-group.mb-2
+                        div.input-group-prepend
+                            div.input-group-text Transportation Price
+                        input.form-control(type="text" readonly=true value=order.price)
+            div.card-body
+                h6.mb-0 Products
+                    div.container-fluid
+                        ul.list-group
+                            each val in order.products
+                                +productItem(val)
+                            else
+                                | There is no products in Order
+
+//  
+ * Nadege Marending
+  END */

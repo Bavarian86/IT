@@ -1,0 +1,18 @@
+// START 
+ * Nadege Marending
+ */
+
+mixin catalogItem(product)
+    div.col-sm-4
+        a(data-toggle="modal" data-target="#itemModal" href="#" onClick="onDetailsOpen(" + product.id + ");")
+            div.card.mb-3
+                img.card-img-top(src='/img/products/' + product.picture alt='Product image')
+                div.card-body
+                    h5.card-title #{product.name}
+                    p.card-text #{product.description}
+                    p.card-text
+                        small.text-muted #{product.colour} - #{product.size}
+
+//  
+ * Nadege Marending
+ END */

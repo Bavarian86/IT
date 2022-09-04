@@ -1,0 +1,30 @@
+//  START
+ * Nadege Marending
+  */
+
+header.navbar.navbar-expand.navbar-light.flex-column.flex-md-row(style="padding:0.5em 1em; background-color: #e3f2fd;")
+    a.navbar-brand(href="/catalog") NavyBlue
+    a.nav-item.btn(href="/catalog") Catalog
+    ul.navbar-nav.flex-row.ml-md-auto.d-none.d-md-flex
+        if session.loggedIn
+            a.btn.d-none.d-lg-inline-block.mb-1.mb-md-0.ml-md-1(href="/user")
+                i.fa-solid.fa-user
+                |  #{session.username}
+            a.btn.d-none.d-lg-inline-block.mb-1.mb-md-0.ml-md-1(href="/shop")
+                i.fa-solid.fa-cart-shopping
+                span.badge.badge-primary #{session.shoppingCart.length}
+            a.btn.d-none.d-lg-inline-block.mb-1.mb-md-0.ml-md-1(href="/logout")
+                i.fa-solid.fa-arrow-right-from-bracket
+                |  Logout
+        else
+            a.btn.d-none.d-lg-inline-block.mb-1.mb-md-0.ml-md-1(href="/login")
+                i.fa-solid.fa-user
+                |  Login
+            a.btn.d-none.d-lg-inline-block.mb-1.mb-md-0.ml-md-1(href="/registration")
+                i.fa-solid.fa-user-plus
+                |  Sign Up
+
+
+//  
+ * Nadege Marending
+  END */

@@ -1,0 +1,67 @@
+//  START
+ * Nadege Marending
+  */
+extends ../common/layout
+include item
+
+block content
+    h1.m-3 NB Catalog
+    div.container-fluid
+        div.row
+            each val in list
+                +catalogItem(val)
+            else
+                There is no products in Catalog
+            div.modal.fade(id="itemModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true")
+                div.modal-dialog(role="document")
+                    div.modal-content
+                        div.modal-header
+                            h5.modal-title(id="itemModalLabel")
+                            button.close(type="button" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true") &times;
+                        div.modal-body
+                            input(type="hidden" id="productId")
+                            input(type="hidden" id="maxProducts")
+                            input(type="hidden" id="minOfPallets")
+                            img(id="itemPicture" alt='Product image' style="width:200px;height:200px")
+                            p(id="itemDescription")
+                            label(for="productAmount") Amount
+                            input(type="number" min="1" max="100" id="productAmount" name="productAmount" value="1")
+                        div.modal-footer
+                            button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+                            if session.loggedIn
+                                button.btn.btn-primary(type="button" data-dismiss="modal" onClick="addItemToCart()") Add to Cart
+                            else
+                                button.btn.btn-primary(type="button" data-dismiss="modal" disabled="disabled" title="Please login to add this product to cart") Add to Cart
+block scripts
+    script.
+        function onDetailsOpen(id) {
+            jQuery.get(`/catalog/item?id=${id}`, (data) => {
+                $("#productId").val(id);
+                $("#itemModal h5").text(data.name);
+                $("#itemDescription").text(data.description);
+                $("#itemPicture").attr('src', '/img/products/' + data.picture);
+                $("#maxProducts").val(data.maxProducts);
+                $("#minOfPallets").val(data.minOfPallets);
+            });
+        }
+        function addItemToCart() {
+            jQuery.post('/shop/item', {
+                "id": $("#productId").val(),
+                "amount": $("#productAmount").val(),
+                "name": $("#itemModal h5").text(),
+                "picture": $("#itemPicture").attr('src'),
+                "maxProducts": $("#maxProducts").val(),
+                "minOfPallets": $("#minOfPallets").val(),
+            }, (data) => {
+                if (data.result === 'SUCCESS') {
+                    // alert('Product successfully added to Shopping Cart');
+                } else {
+                    alert('Error during adding product to Cart, please contact Admins');
+                }
+            });
+        }
+
+////  
+ * Nadege Marending
+  END */

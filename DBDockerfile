@@ -1,0 +1,9 @@
+FROM mysql
+
+ENV MYSQL_ROOT_PASSWORD test
+
+ADD scripts/init.sql /docker-entrypoint-initdb.d/
+RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/
+
+ENV PORT 3306
+EXPOSE $PORT

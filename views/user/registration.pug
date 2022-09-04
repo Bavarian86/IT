@@ -1,0 +1,41 @@
+//  START
+ * Nadege Marending
+  */
+
+extends ../common/layout
+
+block content
+  h1.m-3 Sign up
+  div.container.h-100
+    div.row.h-100.justify-content-center.align-items-center
+      if error != null
+        p(style="color:red") #{error}
+      form(action="/registration" method="POST")
+        div.form-group
+          input.form-control(type="text" id="firstName" name="firstName" placeholder="First name" required=true)
+        div.form-group
+          input.form-control(type="text" id="lastName" name="lastName" placeholder="Last name" required=true)
+        div.form-group
+          input.form-control(type="email" id="email" name="email" placeholder="Email" required=true)
+        div.form-group
+          input.form-control(type="password" id="password" name="password" placeholder="Password" required=true)
+        div.form-group
+          input.form-control(type="password" id="password2" name="password2" placeholder="Repeat password" required=true)
+        h4 Address
+        div.form-group
+          input.form-control(type="text" id="address1" name="address1" placeholder="Address line 1" required=true)
+        div.form-group
+          input.form-control(type="text" id="address2" name="address2" placeholder="Address line 2")
+        div.form-group
+          input.form-control(type="text" id="plz" name="plz" placeholder="Postal code" required=true)
+        div.form-group
+          input.form-control(type="text" id="city" name="city" placeholder="City" required=true)
+        div.form-group
+          input.form-control(type="tel" id="telephone" name="telephone" placeholder="Telephone" required=true)
+        div.form-group
+          input.form-control(type="tel" id="mobile" name="mobile" placeholder="Mobile" required=true)
+        button.btn.btn-primary(type="submit") Sign up
+
+//  
+ * Nadege Marending
+  END */
